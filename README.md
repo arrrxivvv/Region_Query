@@ -19,14 +19,14 @@ FIND_DENSITY_INSIDE - find the percentage of the given window area that is cover
 
 ## DIRECTORY:
 
-bin/	executable binary
-doc/	report, and the webpage about the regionquery problem
-inputs/ input file and query file
-outputs/
-lib/	library
-src/ 	source C++ codes
+	bin/	executable binary
+	doc/	report, and the webpage about the regionquery problem
+	inputs/ input file and query file
+	outputs/
+	lib/	library
+	src/ 	source C++ codes
 
-## HOW TO CIMPILE:
+## HOW TO COMPILE:
 
 Then compile the demo, simply follow the following steps
 	make
