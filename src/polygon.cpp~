@@ -1,0 +1,461 @@
+// ***********************************************************************
+//File            [ polygon.cpp ]
+//Author          [ Algo group 8 ]
+//Synopsis        [ Implementation, PolyMgr, Polygon, Edge, Point ]
+//Date            [  ]
+//Modified From   [ Lin, without problem 1~5 implementation ]
+//Last Modified   [ 2013/06/04 11:50 Lin ]
+//************************************************************************
+#include"polygon.h"
+#include<fstream>
+#include<limits>
+#include<algorithm>
+
+using namespace std;
+#define inf 10000
+
+//double Edge::_scanx = 0;
+
+/*struct intVertex
+{
+	int x;
+	int y;
+}*/
+
+Edge::Edge(int x1, int y1, int x2, int y2, Edge* e, bool u, Polygon* parent)
+		:_beginx(x1),_beginy(y1),_nextx(x2),_nexty(y2),_next(e),_up_or_down(u), _parentPoly(parent) {}
+
+int mod( int a, int b )
+{
+	int r = a % b;
+	if ( r < 0 ){
+		r = r + b;
+	}
+	return r;
+}
+
+/*
+int Edge::nextx() const{
+	if(_next == 0)
+		return inf;
+	return (_next->_beginx);
+}
+int Edge::nexty()const {
+	if(_next == 0)
+		return inf;
+	return (_next->_beginy);
+}
+*/
+/*
+double Edge::corry(double x)const{
+//	cerr<<_scanx<<"---"<<endl;
+	return ((x-_beginx)*(_nexty-_beginy)/(_nextx-_beginx) + _beginy);
+}
+int Edge::eq(int a){
+	if(a == 0)
+		return _nexty-_beginy;
+	else if(a == 1)
+		return _beginx-_nextx;
+	else if(a == 2)
+		return _beginx*_nexty-_beginy*_nextx;
+	else
+		return 0;
+}
+*/
+/*
+bool Edge::operator <(const Edge* & e) const{
+	return corry()<e->corry();
+}
+*/
+
+void Edge::setUpDown( bool updown )
+{
+	//swap begin and next if necessary
+	if ( updown != _up_or_down ) {
+		int tempxy;
+		tempxy = _beginx;
+		_beginx = _nextx;
+		_nextx = tempxy;
+		tempxy = _beginy;
+		_beginy = _nexty;
+		_nexty = tempxy;
+	}
+	_up_or_down = updown;
+}
+
+bool edgeCompLeft( const Edge* a, const Edge* b )
+{
+	if ( a->_beginx < b->_beginx ){
+		return true;
+	}
+	else if ( a->_beginx > b->_beginx ) {
+		return false;
+	}
+	else if ( a->_beginy < b->_beginy ) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+/*
+Point::Point(Edge* e1, Edge* e2, double x, int type)
+		:_x(x),_type(type){
+
+	if(type == 3){
+		if(e1->_nexty > e2->_nexty)
+			swap(e1,e2);
+	}
+	e[0]=e1;
+	e[1]=e2;
+}
+*/
+const string PolyMgr::command1( "FIND_INSIDE" );
+const string PolyMgr::command2( "FIND_INTERACT" );
+const string PolyMgr::command3( "FIND_NO_OVERLAP" );
+const string PolyMgr::command4( "FIND_AREA_LESS_THAN" );
+const string PolyMgr::command5( "FIND_DENSITY_INSIDE" );
+PolyMgr::PolyMgr( string poly, string query, string out, bool verbose ):
+	_polyFileName(poly), _queryFileName(query), _outFileName(out) 
+{
+	_isVerbose = verbose;
+}
+
+PolyMgr::PolyMgr()   //for testing only
+{
+	//for testing only
+}
+
+int PolyMgr::find_inside(int, int, int, int)
+{
+	//problem 1
+	return 0;
+}//end problem 1
+
+int PolyMgr::find_interact(int, int, int, int)
+{
+	//problem 2
+	return 0;
+}//end problem 2
+
+int PolyMgr::find_no_overlap(int, int, int, int)
+{
+	//problem 3
+	return 0;
+}//end problem 3
+
+int PolyMgr::find_area_less_than(double)
+{
+	//problem 4
+	return 0;
+}//end problem 4
+//problem 5
+/*
+double PolyMgr::find_density_inside(int x1,int x2,int y1,int y2){
+	return 0;
+} //end problem 5
+*/
+void PolyMgr::readPolygons()
+{
+	//clear all polygons
+
+	//prepare data
+	string keywordPoly("poly");
+	ifstream polyFile( _polyFileName.c_str(), ios::in );
+	string buffer;
+	Polygon* tempPolyPtr = 0;
+	vector<Vertex> Vs;  //temp store vertices
+	Edge *thisEdge = 0;
+	Edge *nextEdge = 0;
+	Edge *prevEdge = 0;
+	int leftmostone;
+	int leftmostx;
+	int rightmostone;
+	int rightmostx;
+	int highestone;
+	int highesty;
+	int lowestone;
+	int lowesty;
+	bool isdown;
+	int iIncre;
+
+	polyFile >> buffer;
+	while ( polyFile.good() ){  //read polyFile
+		if ( buffer == keywordPoly ) {
+			tempPolyPtr = new Polygon;
+			Vs.clear();
+			polyFile >> tempPolyPtr->_numOfV;
+			Vs.resize( tempPolyPtr->_numOfV );
+			leftmostone = rightmostone = highestone = lowestone = 0;
+			leftmostx = lowesty = numeric_limits<int>::max();
+			rightmostx = highesty = numeric_limits<int>::min();
+			//read in vertices, record boundary
+			for ( int i = 0; i < Vs.size(); ++i){//read in vertices
+				polyFile >> ( Vs[i] ).x;
+				polyFile >> ( Vs[i] ).y;
+				if ( Vs[i].x < leftmostx ) {
+					leftmostx = Vs[i].x;
+					leftmostone = i;
+				}
+				if ( Vs[i].x > rightmostx ) {
+					rightmostx = Vs[i].x;
+					rightmostone = i;
+				}
+				if ( Vs[i].x < lowesty) {
+					lowesty = Vs[i].y;
+					lowestone = i;
+				}
+				if ( Vs[i].x > highesty) {
+					highesty = Vs[i].y;
+					highestone = i;
+				}
+
+			}
+			//put in vertices and boundary
+			tempPolyPtr->_Vertices = Vs;
+			tempPolyPtr->_highIndex = highestone;
+			tempPolyPtr->_lowIndex = lowestone;
+			tempPolyPtr->_rightIndex = rightmostone;
+			tempPolyPtr->_leftIndex = leftmostone;
+			//determin clockwise or not
+			//int clock = Vs[leftmostone+1].y - Vs[leftmostone-1].y;
+			//tempPolyPtr->_clockwise = ( ( clock > 0 ) ? true : false );
+			/*
+			int clockwise = 0;
+			int counterclockwise = 0;
+			clockwise += int( leftmostone < highestone );
+			clockwise += int( highestone < rightmostone );
+			clockwise += int( rightmostone < lowestone );
+			clockwise += int( lowestone < leftmostone );
+			counterclockwise += int( leftmostone < highestone );
+			counterclockwise += int( highestone < rightmostone );
+			counterclockwise += int( rightmostone < lowestone );
+			counterclockwise += int( lowestone < leftmostone );
+			if ( clockwise > counterclockwise ){
+				tempPolyPtr->_clockwise = true;
+			}
+			else {
+				tempPolyPtr->_clockwise = false;
+			}*/
+			//compute area
+			tempPolyPtr->computeArea();
+			//construct edge list
+			tempPolyPtr->_ups.clear();
+			tempPolyPtr->_downs.clear();
+			//determine direction, clockwise or not
+			int firstone = ( leftmostone+1 ) % Vs.size();
+			int lastone = ( leftmostone-1 ) % Vs.size();
+			if ( Vs[firstone].y > Vs[lastone].y ) {//determine direction
+				iIncre = 1;
+				tempPolyPtr->_clockwise = true;
+			}
+			else if ( Vs[firstone].y == Vs[lastone].y ) {
+				if ( Vs[firstone].x > Vs[lastone].x ){
+					iIncre = 1;
+					tempPolyPtr->_clockwise = true;
+				}
+				else {
+					iIncre = -1;
+					tempPolyPtr->_clockwise = false;
+				}
+			}
+			else {
+				iIncre = -1;
+				tempPolyPtr->_clockwise = false;
+			}
+			int current, next1, next2;  //index of Vs vector
+			current = leftmostone;
+			next1 = ( current + iIncre ) % Vs.size();
+			next2 = ( current + 2 * iIncre ) % Vs.size();
+			//if first edge is vertical
+			if ( Vs[next1].x == Vs[current].x ) {
+				leftmostone += iIncre; 
+				current += iIncre;
+				next1 += iIncre;
+				next2 += iIncre;
+			}
+			isdown = false; //first edge shoud be up 
+			nextEdge = new Edge( Vs[leftmostone].x, Vs[leftmostone].y, Vs[(leftmostone+iIncre)%Vs.size()].x, Vs[(leftmostone+iIncre)%Vs.size()].y, 0, false, tempPolyPtr );
+			thisEdge = new Edge( Vs[leftmostone].x, Vs[leftmostone].y, Vs[(leftmostone-iIncre)%Vs.size()].x, Vs[(leftmostone-iIncre)%Vs.size()].y, 0, true, tempPolyPtr );
+			Edge* firstup = nextEdge;  //record first up
+			//tempPolyPtr->_ups.push_back( nextEdge );
+			//tempPolyPtr->_downs.push_back( thisEdge );
+			for ( int i = 0; i * iIncre <= Vs.size()- 1; i += iIncre ){
+					//cout <<"construct edge list for" << endl;  //debuggg
+				prevEdge = thisEdge;
+				thisEdge = nextEdge;
+				isdown = thisEdge->_up_or_down;
+				current = ( i + leftmostone ) % Vs.size();
+				next1 = ( current + iIncre ) % Vs.size();
+				next2 = ( current + 2 * iIncre) % Vs.size();
+				nextEdge = new Edge( Vs[next1].x, Vs[next1].y, Vs[next2].x, Vs[next2].y, 0, false, tempPolyPtr );
+				//vertical thisEdge?
+				if ( thisEdge == 0 ) { //vertical thisEdge
+					//replace it with previous one
+					thisEdge = prevEdge;
+				}
+				//examine nextEdge
+				if ( Vs[next2].x == Vs[next1].x ) {//vertical nextEdge
+					delete nextEdge;
+					nextEdge = 0;
+				}
+				else if ( ( Vs[next1].x > Vs[current].x ) == ( Vs[next2].x > Vs[next1].x ) ) {   //if direction is not changed
+					nextEdge->setUpDown( isdown );
+					thisEdge->_next = (isdown?  prevEdge : nextEdge );
+				}
+				else if ( isdown ) {   //meet a start pt
+					thisEdge->_next = prevEdge;
+					nextEdge->setUpDown(!isdown);
+					tempPolyPtr->_downs.push_back( thisEdge );//record	
+					tempPolyPtr->_ups.push_back( nextEdge );
+				}
+				else {  //meet an end point
+					nextEdge->setUpDown(isdown);
+					thisEdge->_next = 0;
+					nextEdge->_next = 0;
+					thisEdge = 0;  //mark the end point
+				}
+			} //end for
+			sort( (tempPolyPtr->_ups).begin(), (tempPolyPtr->_ups).end(), edgeCompLeft );
+			sort( (tempPolyPtr->_downs).begin(), (tempPolyPtr->_downs).end(), edgeCompLeft );
+			(tempPolyPtr->_ups)[0] = firstup;  //replace first up
+			delete nextEdge; //delete duplicated first up
+
+				//cout << "end construct list for" << endl; ///debuggg
+				//remove duplicated first start point
+			//tempPolyPtr->_ups.pop_back();
+			//tempPolyPtr->_downs.pop_back();;
+				//cout << "end construct edge list" << endl; ///debuggg
+
+			//end construct edge list
+
+			_polygons.push_back( tempPolyPtr );
+		}
+		polyFile >> buffer;
+	}//end reading polyFile
+	tempPolyPtr = 0;
+	thisEdge = 0;
+	nextEdge = 0;
+	prevEdge = 0;
+	//close file
+	polyFile.close();
+		//cout << "end readPolygons" << endl; //debuggg
+}//end readPolygons
+
+
+void PolyMgr::respondQuery()
+{
+	ifstream queryFile( _queryFileName.c_str(), ios::in );
+	ofstream outFile( _outFileName.c_str(), ios::out );
+	string command;
+	int xleft, ylow, xright, yhigh;
+	double area;
+	/* ///debuggg print polygons
+	for ( int i = 0; i < _polygons.size(); ++i ) {
+		outFile << "poly" << " " << _polygons[i]->_numOfV << endl;
+		for ( int j = 0; j < _polygons[i]->_numOfV; ++j ){
+			if ( j != 0 && (j%4) == 0 ) {
+				outFile << endl;
+			}
+			outFile << ( _polygons[i]->_Vertices )[j].x << " " << ( _polygons[i]->_Vertices )[j].y << " "; 
+		}
+		outFile << endl; 
+	}*/
+	while ( queryFile.good() ){
+		queryFile >> command;
+		outFile << command << " ";
+		if ( command == command4 ) { 
+			queryFile >> area;
+			outFile << area << endl;
+			outFile << find_area_less_than( area ) << endl;
+		}
+		else if ( command == command1 ) { 
+			queryFile >> xleft >> ylow >> xright >> yhigh;
+			outFile << xleft << " " << ylow << " "<< xright << " " << yhigh << endl;
+			outFile << find_inside( xleft, ylow, xright, yhigh ) << endl;
+
+		}
+		else if ( command == command2 ){  
+			queryFile >> xleft >> ylow >> xright >> yhigh;
+			outFile << xleft << " " << ylow << " "<< xright << " " << yhigh << endl;
+
+			outFile << find_interact( xleft, ylow, xright, yhigh ) << endl;
+		}
+		else if ( command == command3 ) { 
+			queryFile >> xleft >> ylow >> xright >> yhigh;
+			outFile << xleft << " " << ylow << " "<< xright << " " << yhigh << endl;
+
+			outFile << find_no_overlap( xleft, ylow, xright, yhigh ) << endl;
+		}
+		else if ( command == command5 ) { 
+			queryFile >> xleft >> ylow >> xright >> yhigh;
+			outFile << xleft << " " << ylow << " "<< xright << " " << yhigh << endl;
+
+			//outFile << find_density_inside( xleft, ylow, xright, yhigh ) << endl;
+		}
+	}  //end while of queryFile
+	queryFile.close();
+	outFile.close();
+}//end respondQuery
+/*
+double PolyMgr::findlength(set<Edge*,EdgeComp>* edges){
+	int a = 0;
+	double length =0;
+	double start;
+	for(set<Edge*,EdgeComp>::iterator it=edges->begin();it!=edges->end();++it){
+		if(a==0)
+			start = (*it)->corry();
+		if(!((*it)->_up_or_down))
+			a++;
+		else
+			a--;
+		if(a==0)
+			length+= start - (*it)->corry();
+	}
+	return length;
+}
+
+bool PolyMgr::CrossorNot(Edge* e1, Edge* e2, double& x){
+
+	if(e1 == 0 || e2 == 0)
+		return false;
+	if(e1 -> _next == 0 || e2 -> _next == 0)
+		return false;
+	int delta[3] ={e1->eq(0)*e2->eq(1) - e2->eq(0)*e1->eq(1),
+						e1->eq(2)*e2->eq(1) - e2->eq(2)*e1->eq(1),
+						e1->eq(0)*e2->eq(2) - e2->eq(0)*e1->eq(2)};
+	if(delta[0]!=0){
+		if(x > delta[1]/delta[0])
+			return false;
+		x = delta[1]/delta[0];
+		if(x >= e1->_nextx || x>= e2->_nextx )
+			return false;
+		
+		return true;
+	}else{
+		if(delta[1]==0 && delta[2]==0){
+			x = (e1->_nextx < e2->_nextx)?e1->_nextx:e2->_nextx;
+			return true;
+		}else
+			return false;
+			
+	}
+		
+}
+*/
+void Polygon::computeArea()
+{
+	Vertex start = _Vertices[0];
+	_area = 0;
+	int x1, y1, x2, y2;
+	for ( int i = 1; i <= _Vertices.size() - 2; ++i ){
+		x1 = start.x - _Vertices[i].x;
+		y1 = start.y - _Vertices[i].y;
+		x2 = start.x - _Vertices[i+1].x;
+		y2 = start.y - _Vertices[i+1].x;
+		_area += x1 * y2 - x2 * y1; 
+	}
+	if ( _area < 0 ){
+		_area = (-1) * _area;
+	}
+}

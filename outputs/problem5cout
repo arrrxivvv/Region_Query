@@ -1,0 +1,43 @@
+length_prev0
+length_now0
+beginpoint
+x1.025
+41	0	
+size2
+41	0	
+length_prev41
+length_now41
+beginpoint
+x0
+x0.975
+41	41	2	0	
+size4
+41	41	2	0	
+length_prev41
+length_now28.3333
+endpoint
+--size4
+--size2
+x3.07895
+41	0	
+size2
+41	0	
+length_prev28.3333
+length_now28.3333
+endpoint
+--size2
+--size1
+41	
+size1
+41	
+length_prev0
+length_now0
+endpoint
+--size1
+--size0
+
+size0
+
+length_prev0
+length_now0
+endpoint

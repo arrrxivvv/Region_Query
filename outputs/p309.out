@@ -1,0 +1,417 @@
+FIND_INSIDE 66924 122000 209166 353758
+52
+running time: 140243192387624ms
+memory usage: 140243192398280KB
+FIND_INSIDE 134505 46753 388407 325722
+115
+running time: 4000ms
+memory usage: 12068KB
+FIND_INSIDE 352000 69670 433477 261888
+33
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 76222 209656 435168 317665
+67
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 53974 256014 140489 325722
+12
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 17426 86116 319836 286658
+84
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 3131 127135 111771 228728
+14
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 63381 30999 104573 364005
+20
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 301066 245840 378870 278014
+6
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 169768 267538 410337 368827
+50
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 148480 34513 256212 142902
+17
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 279821 189302 297616 339833
+4
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 66924 122000 270980 267776
+44
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 280041 199928 432215 253974
+20
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 40032 103636 390691 334658
+133
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 94182 81080 321913 202453
+41
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 16228 121238 412541 200828
+40
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 307492 220833 363206 338927
+15
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 21821 300565 57894 340767
+5
+running time: 0ms
+memory usage: 12068KB
+FIND_INSIDE 228654 82324 433468 369221
+122
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 23306 102831 143869 192788
+21
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 82000 125816 430553 261423
+100
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 318546 216131 412974 337506
+32
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 44024 120726 126685 351968
+41
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 164196 57000 349000 103975
+22
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 192141 10509 399612 343162
+147
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 266102 27778 332225 298368
+46
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 66924 85989 353468 143966
+36
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 203298 45711 401643 204710
+67
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 277985 203926 303203 354439
+17
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 122200 138110 143644 361712
+22
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 21821 42029 121509 302824
+54
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 94182 81080 377958 121367
+28
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 107924 127135 204842 201652
+12
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 204958 208889 307594 339264
+38
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 204958 250901 336818 339264
+40
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 14583 94672 214627 263627
+55
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 111298 203796 140489 325722
+11
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 284460 164449 309599 338553
+18
+running time: 0ms
+memory usage: 12068KB
+FIND_INTERACT 37991 304066 125732 319992
+6
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 1331 209656 435168 317623
+76
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 275291 319528 348467 363416
+5
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 152632 190000 315596 338927
+37
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 62819 17467 346128 247968
+83
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 119109 108561 176643 368827
+20
+running time: 4000ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 149867 83737 342000 154811
+9
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 259986 271533 277719 300935
+3
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 243056 148676 268663 335070
+10
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 49936 21722 375636 203830
+73
+running time: 0ms
+memory usage: 12068KB
+FIND_NO_OVERLAP 131390 310617 337390 363221
+16
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 145077 279107 292088 354449
+16
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 113619 34513 165154 199473
+14
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 25813 38092 251244 335070
+84
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 53974 256014 315596 338927
+32
+running time: 4000ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 223729 319528 348467 360190
+5
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 364399 175200 377057 365515
+13
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 141334 36549 318481 111163
+25
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 189950 245550 346128 341038
+30
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 67332 152000 407928 312072
+84
+running time: 0ms
+memory usage: 12200KB
+FIND_NO_OVERLAP 20171 21722 54749 67150
+2
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 7.62578e+07
+170
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 9.58794e+07
+209
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 6.06809e+07
+137
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 1.77419e+08
+274
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 7.72131e+07
+172
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 8.46957e+07
+188
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 6.85343e+07
+153
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 1.52957e+08
+261
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 1.05816e+08
+215
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 4.36978e+07
+97
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 9.29909e+07
+202
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 7.97802e+07
+176
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 1.35527e+08
+253
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 2.03398e+08
+281
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 8.0147e+07
+178
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 2.1094e+07
+41
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 6.8621e+07
+153
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 7.1282e+07
+158
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 9.48331e+07
+207
+running time: 0ms
+memory usage: 12200KB
+FIND_AREA_LESS_THAN 1.49682e+08
+259
+running time: 0ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 37134 253183 318403 300565
+14.0745%
+running time: 0ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 66924 92002 300374 143966
+6.19598%
+running time: 0ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 113619 196788 363206 224694
+14.6908%
+running time: 0ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 137556 189377 252084 361712
+26.2075%
+running time: 4000ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 158364 110000 310708 169000
+13.1899%
+running time: 0ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 203920 36346 244463 301969
+9.56217%
+running time: 0ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 143263 245649 440833 255153
+6.30271%
+running time: 0ms
+memory usage: 12200KB
+FIND_DENSITY_INSIDE 14583 94672 239611 256077
+11.072%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 178752 25167 432215 204928
+15.0711%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 7614 36261 260893 152235
+12.8668%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 39692 82530 66176 291096
+6.1559%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 203298 202699 314452 263332
+16.4083%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 60296 81080 111906 89015
+37.5654%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 47900 245550 346128 340767
+22.1541%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 249019 91919 300483 176981
+18.8794%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 280041 221821 374961 365515
+26.1254%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 61663 28511 295894 206017
+13.9763%
+running time: 4001ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 1572 241000 368476 369307
+24.0896%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 252868 36261 444824 93784
+27.7994%
+running time: 0ms
+memory usage: 12332KB
+FIND_DENSITY_INSIDE 122200 56398 219632 140340
+2.17474%
+running time: 0ms
+memory usage: 12332KB
+Average running time and memory for each problems: 
+Total number of polygons: 309
+FIND_INSIDE: 
+	running time: 200
+	memory: 12068
+FIND_INTERACT: 
+	running time: 0
+	memory: 12068
+FIND_NO_OVERLAP: 
+	running time: 400
+	memory: 12147.2
+FIND_AREA_LESS_THAN: 
+	running time: 0
+	memory: 12200
+FIND_DENSITY_INSIDE: 
+	running time: 400.05
+	memory: 12292.4

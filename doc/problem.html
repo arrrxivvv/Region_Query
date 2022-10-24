@@ -1,0 +1,555 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"><!--
+  .s1 { font-family: sans-serif; font-weight: normal; font-size: 8pt; }
+ .s2 { font-family: sans-serif; font-weight: normal; font-size: 14pt; }
+ .s3 { font-family: sans-serif; font-weight: normal; font-size: 12pt; }
+ .p, p { font-family: sans-serif; font-weight: normal; font-size: 11pt; }
+ .s4 { font-family: sans-serif; font-weight: normal; font-size: 8.5pt; }
+  .auto-style1 {
+	text-align: center;
+}
+.auto-style2 {
+	line-height: 150%;
+}
+.auto-style3 {
+	line-height: 150%;
+	text-align: center;
+}
+.auto-style4 {
+	line-height: 100%;
+}
+.auto-style5 {
+	text-align: left;
+}
+  -->
+</style>
+<link href="problem_files/Untitled_12.css" rel="stylesheet" type="text/css">
+</head><body><h1 class="auto-style1">2013國際積體電路電腦輔助設計軟體製作競賽 </h1>
+<h2 class="auto-style1">Region Query Problem</h2>
+<h3 class="auto-style1">Synopsys Taiwan Co. Ltd.</h3><hr>
+<h2 class="auto-style1">1.  Introduction and Problem Definition</h2><p class="auto-style2">Searching
+ for objects that intersect a specified area in two-dimensional space is
+ commonly referred to as region query. For this problem, a set of simple
+ polygons are given. A simple polygon is the region enclosed by a single
+ closed polygonal chain that does not intersect itself. Thus we do not 
+allow polygons with holes.  After reading in the polygons, the program 
+expects five types of query commands and gives the correct answers. 
+Those commands are:
+</p><ol>
+	<li>Find the number of polygons contained by a given (rectangular) window area.</li>
+	<li>Find the number of polygons interacting with a given window area. Interaction means overlap or touching among polygons.</li>
+	<li>Find the number of polygons interacting with given window that do not overlap with others interacting with the window.</li>
+	<li>Find the number of polygons whose areas are less than a given number.</li>
+	<li>Find the percentage of the given window area that is covered by polygons.</li>
+</ol>
+To efficiently answer the queries, the program has to put the polygons 
+into a proper data structure. Usually, bins or quad-trees are used. 
+Please refer to the reference materials.
+<p></p>
+<h2 class="auto-style1">2. Input</h2>
+<p class="auto-style2">The input data are a list of polygons. A polygon 
+is described by a list of points. Each point consists of some 
+two-dimensional (X, Y) coordinates. Each X or Y is a 32-bit signed 
+integer. Those points define the vertices of the polygon. The definition
+ of the polygon starts with the keyword “poly” and the number of 
+vertices of the polygon, followed by the point list of the vertices.<br>
+Example:
+</p><pre>poly 3
+-1 -1 1 4 3 1
+poly 4
+4 4 4 6 3 6 3 4
+poly 6
+3 5 4 5 4 7 2 7 2 6 3 6
+</pre>
+There are five query command key words:
+<p></p>
+<ol>
+	<li>
+	<p class="auto-style4">FIND_INSIDE - find the number of polygons inside the given window area.
+	</p>
+	</li>
+	<li>
+	<p class="auto-style4">FIND_INTERACT - find the number of polygons interacting with the given window area. (Even point touching counts.)
+	</p>
+	</li>
+	<li>
+	<p class="auto-style4">FIND_NO_OVERLAP - find the number of polygons 
+interacting with a given window that do not overlap with any other 
+polygons interacting with the window. That means you need to use 
+FIND_INTERACT to select the polygons interacting with the window. Among 
+these selected polygons, find the number of polygons that do not overlap
+ other selected polygons.
+	</p>
+	</li>
+	<li>
+	<p class="auto-style4">FIND_AREA_LESS_THAN - find the number of polygons whose areas are less than the given number.
+	</p>
+	</li>
+	<li>
+	<p class="auto-style4">FIND_DENSITY_INSIDE - find the percentage of the given window area that is covered by polygons.
+	</p>
+	</li>
+</ol>
+<p class="auto-style2">The window area is defined by the lower-left and upper-right coordinates of a rectangle.<br>
+Example:
+</p><pre>FIND_INSIDE 2 2 4 6
+FIND_INTERACT 2 2 4 6
+FIND_NO_OVERLAP 2 2 4 6
+FIND_AREA_LESS_THAN 2.5
+FIND_DENSITY_INSIDE 2 5 4 7 
+</pre>
+A query file consisting of query commands as shown here will be used to run the program in batch mode.
+<p></p>
+<h2 class="auto-style1">3. Output</h2>
+<p class="auto-style2">Report the number of polygons for the first four 
+types of queries.  For the density query, report the percentage with 
+precision to 0.01%.<br>
+Example:
+</p><pre>FIND_INSIDE 2 2 4 6
+1
+FIND_INTERACT 2 2 4 6
+3
+FIND_NO_OVERLAP 2 2 4 6
+1
+FIND_AREA_LESS_THAN 2.5
+1
+FIND_DENSITY_INSIDE 2 5 4 7
+75.00%
+</pre>
+By default, the output file will consists of the query command followed by the answer as shown above.<br>
+For evaluating correctness, you also need to provide an option 
+(-verbose) to print the answers in the input polygon format (in the same
+ order as the input file) following the polygon count.<br>
+Example:<br>
+<pre>FIND_INSIDE 2 2 4 6
+1
+poly 4
+4 4 4 6 3 6 3 4
+</pre>
+When –verbose is specified, the output file will consists of the query 
+command, number of polygons as the answer, and the output polygons for 
+the query as shown above.
+<p></p>
+<h2 class="auto-style1">4.  Language/Platform</h2>
+<p class="auto-style2">Language:  C or C++<br>
+Platform: Linux.<br><br>
+Usage:  &lt;program&gt;  [-verbose]   &lt;input file&gt;     &lt;query file&gt;      &lt;output file&gt;</p>
+<h2 class="auto-style1">5.  Evaluation</h2>
+<p class="auto-style2">The score for each testcase will be given based on correctness, time efficiency and memory requirement.<br>
+Correctness: 50%<br>
+Runtime: 40%<br>
+Memory usage: 10%</p>
+<p class="auto-style2">The score will be calculated as follows:<br><br>
+C = (# of correct answers) / (# of problems)<br>
+TC = runtime / C<br>
+T = (minimum TC within the contestants) / TC<br>
+M = (minimum memory usage within the contestants) / memory usage<br>
+<br>
+Score = C * 50 + T * 40 + M * 10<br>
+<br>
+Note: Contestants with the program that fails to complete will get a 
+zero score.  Contestants with the program that fails to complete or has a
+ correctness ratio less than 80% (C &lt; 0.8) will be excluded from the 
+calculation of T and M and will get a zero score for runtime and memory 
+(T=M=0).<br>
+<br>
+For each testcase, the contestants will be ranked with the score. The 
+contestant with the lowest total rank from all the testcases would win 
+the contest.
+</p>
+<h2 class="auto-style1">6. Testcases</h2>
+<p class="auto-style2"></p><li><a href="http://cad_contest.cs.nctu.edu.tw/cad13/problem_e/iccad2013_PEbench1.tgz">iccad2013_PEbench1.tgz</a>
+<p class="auto-style2"></p></li><li><a href="http://cad_contest.cs.nctu.edu.tw/cad13/problem_e/iccad2013_PEbench2.tgz">iccad2013_PEbench2.tgz</a>
+<p class="auto-style2"></p></li><li><a href="http://cad_contest.cs.nctu.edu.tw/cad13/problem_e/iccad2013_PEbench3.tgz">iccad2013_PEbench3.tgz</a>
+<p class="auto-style2"></p></li><li><a href="http://cad_contest.cs.nctu.edu.tw/cad13/problem_e/iccad2013_PEbench4.tgz">iccad2013_PEbench4.tgz</a>
+<p class="auto-style2"></p></li><li><a href="http://cad_contest.cs.nctu.edu.tw/cad13/problem_e/iccad2013_PEbench5.tgz">iccad2013_PEbench5.tgz</a>
+<p class="auto-style2"></p></li><li><a href="http://cad_contest.cs.nctu.edu.tw/cad13/problem_e/iccad2013_PEbench6.tgz">iccad2013_PEbench6.tgz</a>
+<p></p>
+<p class="auto-style2">The testcases will contain only 90-degree edges (vertical/horizontal) and 45-degree edges (edges with slope 1.0 or -1.0).</p>
+<h2 class="auto-style1">7. Questions</h2>
+<p class="auto-style2">Please report any questions regarding this problem to 
+<a href="mailto:cad.contest.iccad@gmail.com">cad.contest.iccad@gmail.com</a>
+ with the email subject “CAD Contest: Problem E.” Your question(s) will 
+be answered in two weeks, and the Q&amp;A's will be posted at the 
+contest web site.</p>
+<h2 class="auto-style1">8. References</h2>
+<p class="auto-style2">
+</p><ol>
+<li>
+Hanan Samet, The Design and Analysis of Spatial Data Structures, Addison Wesley, 1989
+</li>
+<li>
+M. De Berg, M. van Kreveld, M. Overmars, and O. Schwarzkopf, Computational Geometry, Algorithms and Applications, Springer, 1991
+</li>
+<li>
+Anucha Pitaksanonkul, Suchai Thanawastien, and Chidchanok Lursinsap, 
+”Comparisons of Quad Trees and 4-D Trees: New Results,” IEEE Trans. on 
+Computer-Aided Design, pp.1157-1164, Nov. 1989.
+</li>
+<li>
+Glenn G. Lai, Donal S. Fussell, and D.F. Wong, ”Hinted Quad Trees for 
+VLSI Geometry DRC Based on Efficient Searching of Neighbors,” IEEE 
+Trans. on Computer-Aided Design, pp.317-324, Mar. 1996.
+</li>
+</ol>
+<p></p>
+<h2 class="auto-style1">9. FAQ</h2>
+<ol>
+	<li>
+	<p class="auto-style2">一個polygon中多個連續的點出現在一條直線上是否正常?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">正常. 可直接將中間的點去除.不過提供的測試資料應該不會出現這樣的情形.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">出現沒有area的多邊形 (比如說: 一直線) 是否正常?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">不正常. 可直接將這樣的多邊形去除.不列入計算.不過提供的測試資料應該不會出現這樣的情形.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">g++的版本是多少呢?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">4.5.2</p>
+		</li>
+	</ul>
+	</li>
+
+</ol>
+<!--
+<a name="testcase"></a><h2 class="auto-style1">7. Testcases</h2>
+<ol>
+	<p class="auto-style2">
+	<li><a href="http://cad_contest.cs.nctu.edu.tw/CAD-contest-at-ICCAD2012/problems/p1/test01.zip">test1</a>
+	</li>
+	<li><a href="http://cad_contest.cs.nctu.edu.tw/CAD-contest-at-ICCAD2012/problems/p1/cadContest2012_ECO_testcases.tar.gz">The first set of testcases</a>
+	</li>
+	<li><a href="http://cad_contest.cs.nctu.edu.tw/CAD-contest-at-ICCAD2012/problems/p1/cadContest2012_ECO_testcases2.tar.gz">The 2nd (last) set of testcases</a>: There are 16 testcases in total, including the first set with 5 cases.
+	</li>
+	<li><a href="http://cad_contest.cs.nctu.edu.tw/CAD-contest-at-ICCAD2012/problems/p1/P1_hiddencases.tar.gz">The hidden cases</a>
+	</li>
+</ol>
+
+<h2 class="auto-style1">8. FAQ</h2>
+<ol>
+	<li>
+	<p class="auto-style2">Can we assume that there are no flip-flops in all testcases (i.e. Combinational design)?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Yes, no flops.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">Should the name of each gate in g1.v and g2.v be the same in their same part? For example, if g1.v has 3 gates named G1, G2 and G3, g2.v which has 4 gates will be named as G1, G2, G3 and G4 (I suppose)?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">No, there is no relationship between the names in g1.v and g2.v, even they share the same name, it doesn't hint anything.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">From problem description, we knew that functional ECO is developed for changing design at latter stage, so in general, original circuit is post-silicon and cannot be changed anymore. We want to confirm this concept first.<br>
+	Based on above concept, we think that the following format should not appear in any cases:<br>
+	g1.v (part)<br>
+	and AND1(n1, n2n ,3);<br>
+	g2.v (part)<br>
+	nand NAND1(n1, n2, n3);<br>
+	It means that new design has been optimized at synthesis stage.The and gate in g1.v is merged into a new inverter in g2.v and generate the nand gate.<br>
+	We want to confirm that is it possible to have above case in any released test case and we have to handle this in our program, or we can guarantee that all gates in g1.v must appear at g2.v, so we do not care about this?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Your comment about “original circuit is post-silicon and cannot be changed anymore” is confusing. ECO could be pre-silicon or post-silicon. If “cannot be changed anymore” means everything cannot be changed, then we don’t need ECO. With the help of spare cell and wire dis-connection/re-connection in the cost of mask, we are able to make the ECO to rectify the function even in post-silicon.<br>
+		G2 will be generated from the synthesis of new RTL. And we don't guarantee the relationship between gates of G1 and of G2. So, please don't do any assumption that there will be 1 to 1 mapping between G1 and G2, and again, naming has no meaning there.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">Since the Problem tell us that we only need to consider the gate level difference between g1.v and g2.v to generate the patch file (patch.v).<br>
+	If we have x = (a + b )c in g1.v and x = ac + bc in g2.v. so we have 2 logic gates ( one OR and one AND) in g1.v and 3 logic gates (one OR and two AND) in g2.v.<br>
+	In this case should we consider these two circuit are the same, and not adding any gate into patch.v?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">In the example of the question, x in g1.v and g2.v are functional equivalent. There is no need to do ECO.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">The problem formulation mentioned that<br>
+	Patch size = number of wires + cost of primitives in the patch<br>
+	What's the definition of “number of wires”<br>
+	For example: ex: patch.v: wire n1, x3, x3_in, x1;<br>
+	Does the number of wires mean the number of the declaration of wires?<br>
+	(n1+x3+x3_in+x1 = 4 wires)</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Yes.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">If the answer of the above question is “Yes”, does that mean “multiple fanouts of a gate” is equal to 1 wire?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Yes.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">Can we remove an existed gate in the old netlist by rewiring gates? For example: not G1 (A, B);  If we want to remove this not gate, can we just assign A = B , to remove it? Or use buf(A, B) to do that?<br>
+	If we can remove an existed gate in the old netlist, how to evaluate the cost?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">(1) You can do both, and their scores are the same.<br>
+		(2) The assign statement is treated as 1-input primitive, just like buffer. In the patch, we have 2 nets, A and B, one primitive, so the cost is 2 + (1 - 2) = 1</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">We have known that we can remove an existed gate in the old netlist, e.g, a NOT gate. If I need a patch of NOT gate at another position, can we reuse the removed gate as the patch? In fact, I think we can't do that because I don't know how to connect it by the definition of this problem. I just want to make sure of it.</p>
+	<ul>
+		<li>
+		<p class="auto-style2">This problem focus on how to construct the patch. It doesn't care about where those gates come from. It can be new gate or reused gate. It won't make any difference in patch size calculation.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">There may be a lot of possible situations of codes in continuous assignment:</p>
+	<ol>
+		<li>
+		<p class="auto-style2">Is there only 1 bit net in continuous assignment?</p>
+		<ul>
+			<li>
+			<p class="auto-style2">The recommendation is to use 1-bit assignment, therefore the patch is all primitives. This is to simplify the contester's work. As the truth of fact, word level assignment contributes the same score as bit-level continuous assignment.</p>
+			</li>
+		</ul>
+		</li>
+		
+		<li>
+		<p class="auto-style2">Is the number of bits of left side of equation the same as that of the right side? e.g.<br>
+		wire [15:0] abc;<br>
+		assign abc = 12'b1111_0000_1111;</p>
+		<ul>
+			<li>
+			<p class="auto-style2">This will trigger unsigned extension. We follow the verilog standard, so you can do that.</p>
+			</li>
+		</ul>
+		</li>
+
+		<li>
+		<p class="auto-style2">How to apply patch if g1.v is different from g2.v at continuous assignment? e.g<br>
+		wire a,b,c;<br>
+		g1.v      ->   and (a,b,c);<br>
+		g2.v      ->   assign a = 1'b0;<br>
+		patch.v ->   (?)    Is it the same as g2.v? assign a = 1'b0; ?</p>
+		<ul>
+			<li>
+			<p class="auto-style2">There won’t be any continuous assignment in the testcases. But we allow the contester to use it to construct patch.</p>
+			</li>
+		</ul>
+		</li>
+
+		<li>
+		<p class="auto-style2">How about patch costs with continuous assignment?</p>
+		<ul>
+			<li>
+			<p class="auto-style2">The 1 bit assignment can be viewed as a buffer, the cost is the same. So, its patch size would be 0.</p>
+			</li>
+		</ul>
+		</li>
+
+	</ol>
+	</li>
+
+	<li>
+	<p class="auto-style2">Would we include some released library, for example: SIS, in our program? (We will provide its sources with others of our program.)</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Yes, as long as the libraries are publicly accessible. The committee will announce it soon.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">The output of our program is expected to contain only Verilog primitives. Can we include user-defined primitives in the output?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">No.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">We just assume that the g1.v(old circuits) and g2.v(new circuits) are as below:<br>
+<pre>
+g1.v
+
+module top(x1,x2,x3,o1,o2,o3);
+input x1,x2,x3;
+output o1,o2,o3;
+wire n1;
+and g1 (n1,x1,x2);
+assign o1 = n1;
+assign o2 = n1;
+assign o3 = n1;
+endmodule
+
+g2.v
+
+module top(x1,x2,x3,o1,o2,o3);
+input x1,x2,x3;
+output o1,o2,o3;
+or g1 (o1,x1,x2);
+and g2 (o2,x2,x3);
+and g3 (o3,x1,x3);
+endmodule
+</pre></p>
+	<p class="auto-style2">Then the question is how to write patch.v file?<br>
+	The issue is that o1,o2 and o3 belong to the same net in old circuit but they have different signals in new circuit. In current patch naming rules, the module outputs for o1,o2,o3 should be all named as "n1_in". But the verilog does not allow multiple module ouputs have the same name.</p>
+	<ul>
+		<li>
+		<p class="auto-style2">For this example, the patch could be<br>
+		<pre>
+module top_eco(x1,x2_in,x3,o1,o2,x2);
+input x1,x2_in,x3;
+output o1,o2,x2;
+or g1 (o1,x1,x2_in);
+and g2 (o2,x2_in,x3);
+assign x2 = x3;
+endmodule
+		</pre></p>
+		<p class="auto-style2">There could be other patch depending on your algorithm.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">I'm not very clear how to rename a net which is in a bus form. Just given the example like below:<br>
+	We have net1 in g1.v(old circuit):<br>
+	<pre>wire [7:0] net1;</pre></p>
+	<p class="auto-style2">Assume that we only need some bits of net1 in patch file and add "_in" postfix to some bits. (such as we need net1[2] and net1[4], we need add "_in" postfix for net1[4]).<br>
+	Then how to name the module ports in patch file? Should we name the ports as below?<br>
+	<pre>module eco(net1[2],net1[4],net1[4]_in);</pre></p>
+	<p class="auto-style2">Actually this name is illegal in the verilog format. We should add "\" prefix since the name contain special characters. But I don't think "\net1[4]_in" or "\net1[2]" are good names since they are in bit form while the corresponding nets in g1.v(old circuits) are in bus form...<br>
+	To handle this issue, I just suggest the given test cases are all in bit form instead of bus form(the output form in bus or bit form is often controlled by an option of a synthesizer to the best of my knowledge...). Then the above issue may be avoid...</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Thanks for bringing up this issue. There are no word level operators in the testcases, please let us know if there is any. If the escape is required, then please append a space in the trailing, for example, "\a[0]_in ".</p>
+		</li>
+	</ul>
+	<p class="auto-style2">For example, there originally are input [3:0]a in g1, and now in the patch a[2] is modified into "\a[2]_in " , so a[2] is not primary input anymore. Then, how to present the module name with a[0], a[1],  "\a[2]_in" and a[3]  as primary inputs in it?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Though there are ports declared as bus form in g1.v and g2.v, there are NO word level operators in the testcases. So, the circuits are all described as bit form. It is OK to specify these bit level signals as primary inputs in patch.v (module top_eco). The primary input [3:0]a shall be specified as input port in g3.v (module top) which would be the same as g2.v.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">I modified the circuits shown in section 3.4 as follow:</p>
+	<pre>
+g1.v
+
+module top(x1,x2,x3,o1,x4,o2);
+  input x1,x2,x3;
+  output o1;
+  input x4;
+  output o2;
+  wire x1,x2,x3,o1;
+  wire x4,o2;
+  wire n2;
+  and g1 (n2,x1,x2);
+  or g2 (o1,x3,n2);
+  and g3 (o2,x3,x4);
+endmodule
+
+g2.v
+
+module top(x1,x2,x3,o1,x4,o2);
+  input x1,x2,x3;
+  output o1;
+  input x4;
+  output o2;
+  wire x1,x2,x3,o1;
+  wire x4,o2;
+  wire n1,n2,n3;
+  and g1 (n2,x1,x2);
+  not g3 (n1,x1);
+  and g4 (n3,n1,x3);
+  or g2 (o1,n3,n2);
+  and g5(o2,x3,x4);
+end module
+	</pre>
+	<p class="auto-style2">The differences between the above circuits and the example in section 3.4 are that the net x3 have 2 fanouts in the above circuits while it has a single one in 3.4. Now I just want to create the same patch as shown in section 3.4. But if I write the patch as shown in 3.4, then the functionality of g3(in g1.v) will change. I cannot think of a good method to write the patch in this case and can you give me any suggestion?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">The patch could be:</p>
+		<pre>
+module top_eco(o1, x1, x3, n2);
+  input x1, x3, n2;
+  output o1;
+  not g3 (n1,x1);
+  and g4 (n3,n1,x3);
+  or g2 (o1,n3,n2);
+endmodule
+		</pre>
+		<p class="auto-style2">BTW, the modified g1.v contains more changes than fanout change of x3, actually, 1 more output port is added.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">What is your linux kernel version and "gcc" version?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Linux 2.6.9. Since the submission file format is binary executable, we do not release the “gcc” version. We do not compile the program on test server. We directly run your uploaded binary executable program in test server.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">Is it a must to submit alpha submission? If yes, can we send test version?(not complete version)</p>
+	<ul>
+		<li>
+		<p class="auto-style2">Apha test is to test if your program can be run on the test server, so all registered teams must upload a binary executable program for test. If your program run output results in alpha test, you can improve your methods based on the alpha test results.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">Does a gate have the max number of input pin? how many of each gate?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">We follow the verilog standard.</p>
+		</li>
+	</ul>
+	</li>
+
+	<li>
+	<p class="auto-style2">In testcase all xnor has only two input. Can we assume the gate that like xor, xnor has only two input?</p>
+	<ul>
+		<li>
+		<p class="auto-style2">No. There might be more than 2-inputs xor and other similar gates.</p>
+		</li>
+	</ul>
+	</li>
+
+</ol>
+-->
+
+</li></body></html>
