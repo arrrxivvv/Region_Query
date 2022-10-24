@@ -1,8 +1,7 @@
-This is README file for Algorithm Final Project
-Author: <Algorithm group 8>
-Date:2013/6/14 20:33
-=====
-SYNOPSIS:
+# Region Query
+Computes overlapping area of polygons
+
+## SYNOPSIS:
 
 regionquery [-verbose] <input file> <query file> <output file>
 
@@ -18,8 +17,7 @@ FIND_AREA_LESS_THAN - find the number of polygons whose areas are less than the 
 
 FIND_DENSITY_INSIDE - find the percentage of the given window area that is covered by polygons.
 
-=====
-DIRECTORY:
+## DIRECTORY:
 
 bin/	executable binary
 doc/	report, and the webpage about the regionquery problem
@@ -27,19 +25,19 @@ inputs/ input file and query file
 outputs/
 lib/	library
 src/ 	source C++ codes
-======
-HOW TO CIMPILE:
+
+## HOW TO CIMPILE:
 
 Then compile the demo, simply follow the following steps
 	make
-======
-HOW TO RUN:
+
+## HOW TO RUN:
 	cd ../bin
 	regionquery [-verbose] <input file> <query file> <output file>
 	For example,
 	regionquery ./../inputs/testin ./../inputs/testin_q ./../inputs/test.out
-======
-SOURCE CODE:
+
+## SOURCE CODE:
 
 	polygon.h:		Header file. 
 	polygon.cpp: 	Bsic implementation of polygon.h and system functions: 
@@ -50,5 +48,5 @@ SOURCE CODE:
 	polygon4.cpp:	Problem 4 implementation
 	polygon5.cpp:   Problem 5 implementation
 	main.cpp:		main function
-======
-OTHER NOTICE:
+
+## OTHER NOTICE:
